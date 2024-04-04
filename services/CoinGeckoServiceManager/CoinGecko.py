@@ -2,8 +2,9 @@ import pandas as pd
 
 from enum import Enum
 
-from rest_service_manager import ClientApp, ServiceManager
-from credentials_manager import CredentialsManager, CredentialKey
+from services import credentials_manager
+from services.rest_service_manager import ClientApp, ServiceManager
+from services.credentials_manager import CredentialsManager, CredentialKey
 
 _URL_COINGECKO = 'https://api.coingecko.com/api/v3/'
 _URL_GECKOTERMINAL = 'https://api.geckoterminal.com/api/v2/'
@@ -125,11 +126,11 @@ if __name__ == '__main__':
     """
     TRENDING POOLS ON AVALANCHE
     """
-    trending_pools = cg.get_trending_pools()
-    messages = format_dataframe(trending_pools)
-    telegram_token, telegram_chat_ids = credentials_manager.get_credentials(CredentialKey.TELEGRAM)
-    group_chat_id = telegram_chat_ids.get('FABRICE_TRADING')
-    response = TelegramSender(token=telegram_token)
-    for message in messages:
-        response.send_sync_message(chat_id=-1002084350699, message=message, parsing_mode='Markdown')
-    print()
+    # trending_pools = cg.get_trending_pools()
+    # messages = format_dataframe(trending_pools)
+    # telegram_token, telegram_chat_ids = credentials_manager.get_credentials(CredentialKey.TELEGRAM)
+    # group_chat_id = telegram_chat_ids.get('FABRICE_TRADING')
+    # response = TelegramSender(token=telegram_token)
+    # for message in messages:
+    #     response.send_sync_message(chat_id=-1002084350699, message=message, parsing_mode='Markdown')
+    # print()

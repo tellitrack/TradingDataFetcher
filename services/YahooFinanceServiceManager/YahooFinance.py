@@ -43,10 +43,10 @@ class YahooFinanceServiceManager:
 
 
 if __name__ == '__main__':
-    ticker = "AAPL"
+    symbol = "AAPL"
     start_date = "2024-01-01"
     end_date = "2024-04-02"
     period = "1d"
-    manager = YahooFinanceServiceManager(ticker)
+    manager = YahooFinanceServiceManager(symbol)
     res = manager.get_dividends()
     print(res)

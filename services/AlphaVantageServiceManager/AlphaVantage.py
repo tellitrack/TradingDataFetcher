@@ -11,7 +11,7 @@ https://www.alphavantage.co/premium/ to instantly remove all daily rate limits.'
 
 import pandas as pd
 from enum import Enum
-from rest_service_manager import ClientApp, ServiceManager
+from services.rest_service_manager import ClientApp, ServiceManager
 
 # API documentation: https://www.alphavantage.co/documentation/
 

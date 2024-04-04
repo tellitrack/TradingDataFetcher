@@ -2,7 +2,7 @@ import pandas as pd
 from enum import Enum
 from typing import List, Dict
 
-from rest_service_manager import ClientApp, ServiceManager
+from services.rest_service_manager import ClientApp, ServiceManager
 
 _URL = 'https://api.eia.gov/v2/'
 

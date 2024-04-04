@@ -3,8 +3,9 @@ import time
 
 import yaml
 from selenium.webdriver.common.by import By
-from _helpers.webscrapper import WebScraper
+from helpers.webscrapper import WebScraper
 from config import CREDENTIALS_PATH
+from services.credentials_manager import CredentialsManager
 
 
 class WealthSimpleLoginAutomation(WebScraper):

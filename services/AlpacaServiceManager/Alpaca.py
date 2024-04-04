@@ -2,8 +2,8 @@ import datetime
 from enum import Enum
 from config import CREDENTIALS_PATH
 
-from credentials_manager import CredentialsManager, CredentialKey
-from rest_service_manager import ClientApp, ServiceManager
+from services.credentials_manager import CredentialsManager, CredentialKey
+from services.rest_service_manager import ClientApp, ServiceManager
 from alpaca.data.historical import CryptoHistoricalDataClient, StockHistoricalDataClient
 from alpaca.data.requests import CryptoBarsRequest, StockBarsRequest
 
