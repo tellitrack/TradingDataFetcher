@@ -6,3 +6,4 @@ Requests==2.31.0
 selenium==4.19.0
 yfinance==0.2.37
 beautifulsoup4~=4.12.3
+SQLAlchemy~=2.0.29
