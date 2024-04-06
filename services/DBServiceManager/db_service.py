@@ -1,65 +1,36 @@
-from sqlalchemy import create_engine
-from sqlalchemy.engine import URL
+from sqlalchemy import create_engine, ForeignKey, Column, Integer, String, CHAR, Float
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy_utils import database_exists, create_database
+from sqlalchemy.orm import sessionmaker
 
-url = URL.create(
-    drivername="postgresql",
-    username="tellitrack",
-    host="/tmp/postgresql/socket",
-    database="db_trading"
-)
-
-
-class DBService:
-    def __init__(self, db_url):
-        self.db_url = db_url
-        self.engine = create_engine(self.db_url)
-
-    def connect(self):
-        return self.engine.connect()
-
-    def get_engine(self):
-        return self.engine
-
-    def get_url(self):
-        return self.db_url
-
-    def get_db_name(self):
-        return self.db_url.database
-
-    def get_db_type(self):
-        return self.db_url.drivername
-
-    def get_db_host(self):
-        return self.db_url.host
-
-    def get_db_port(self):
-        return self.db_url.port
-
-    def get_db_user(self):
-        return self.db_url.username
-
-    def get_db_password(self):
-        return self.db_url.password
-
-    def get_db_url(self):
-        return self.db_url.get_dialect().driver + "://" + self.db_url.username + ":" + self.db_url.password + "@" + self.db_url.host + ":" + str(
-            self.db_url.port) + "/" + self.db_url.database
-
-    def get_db_url_without_password(self):
-        return self.db_url.get_dialect().driver + "://" + self.db_url.username + "@" + self.db_url.host + ":" + str(
-            self.db_url.port) + "/" + self.db_url.database
-
-    def get_db_url_without_user_password(self):
-        return self.db_url.get_dialect().driver + "://" + self.db_url.host + ":" + str(
-            self.db_url.port) + "/" + self.db_url.database
-
-    def get_db_url_without_user_password_port(self):
-        return self.db_url.get_dialect().driver + "://" + self.db_url.host + "/" + self.db_url.database
+postgresql = {"user": "tellitrack",
+              "password": "camille",
+              "host": "localhost",
+              "port": 5432,
+              "db": "db_trading"}
 
 
-if __name__ == "__main__":
-    db_service = DBService(url)
-    print(db_service.get_db_url())
-    print(db_service.get_db_url_without_password())
-    print(db_service.get_db_url_without_user_password())
-    print(db_service.get_db_url_without_user_password_port())
+def get_engine(user, password, host, port, db):
+    url = f"postgresql://{user}:{password}@{host}:{port}/{db}"
+    if not database_exists(url):
+        create_database(url)
+    engine = create_engine(url, pool_size=50, echo=False)
+    return engine
+
+
+def get_engine_from_settings(config: dict):
+    keys = ["user", "password", "host", "port", "db"]
+    if not all(key in keys for key in postgresql.keys()):
+        raise Exception("Bad credentials config")
+    else:
+        return get_engine(**config)
+
+
+def get_session():
+    engine = get_engine_from_settings(postgresql)
+    session = sessionmaker(bind=engine)()
+    return session
+
+
+session1 = get_session()
+print(session1)
