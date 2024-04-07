@@ -7,7 +7,7 @@ Base = declarative_base()
 class Signals(Base):
     __tablename__ = 'signals'
 
-    id_entry = Column("id_entry", String)
+    id = Column("id", String)
     timestamp = Column("timestamp", DateTime)
     way = Column("way", String)
     price = Column("price", Float)
@@ -19,6 +19,7 @@ class Signals(Base):
     stoplosslimitprice_update = Column("stoplosslimitprice_update", Float)
 
     def __init__(self,
+                 id,
                  timestamp,
                  way,
                  price,
@@ -29,6 +30,7 @@ class Signals(Base):
                  trend_way_update,
                  stoplosslimitprice_update
                  ):
+        self.id = id
         self.timestamp = timestamp
         self.way = way
         self.price = price
